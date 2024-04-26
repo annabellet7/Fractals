@@ -13,6 +13,6 @@ public:
 	int worldToScreenX(double x);
 	int worldToScreenY(double y);
 
-	void nextPoint();
+	int nextPoint();
 	void drawPoint(SDL_Renderer* renderer);
 };
