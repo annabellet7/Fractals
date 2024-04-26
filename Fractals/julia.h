@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Header.h"
+
 #include "mandelbrot.h"
 
 class Julia : public Mandelbrot

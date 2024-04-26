@@ -1,5 +1,5 @@
 #pragma once
-#include "Header.h"
+#include <SDL.h>
 
 class Mandelbrot
 {
@@ -10,6 +10,8 @@ private:
 	double mOrginR;
 	double mOrginI;
 	
+	const int WIDTH = 1000;
+	const int HEIGHT = 1000;
 
 public:
 	Mandelbrot();

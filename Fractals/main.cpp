@@ -1,17 +1,18 @@
 #include <iostream>
 
-#include "Header.h"
 #include "mandelbrot.h"
 #include "julia.h"
+#include "tree.h"
 
 int main(int argc, char* argv[])
 {
 	bool running = true;
 	Mandelbrot mandelbrot;
 	Julia julia;
+	Tree tree;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow("Fractals", 800, 0, WIDTH, HEIGHT, 0);
+	SDL_Window* window = SDL_CreateWindow("Fractals", 800, 0, 1000, 1000, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 	
 
@@ -20,7 +21,9 @@ int main(int argc, char* argv[])
 	double real, imaginary;
 	SDL_Event event;
 
-	mandelbrot.drawMandelbrot(renderer);
+	/*mandelbrot.drawMandelbrot(renderer);*/
+	tree.drawBranch(renderer);
+	tree.clockWise(tree.getBranch(0), M_PI / 4, renderer);
 
 	std::cout << "running" << std::endl;
 	while (running)

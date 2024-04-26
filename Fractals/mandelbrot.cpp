@@ -68,27 +68,27 @@ void Mandelbrot::drawMandelbrot(SDL_Renderer* renderer)
 
 			switch (iters)
 			{
-			case MandelbrotColors::Black:
+			case 0:
 				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 225);
 				SDL_RenderDrawPointF(renderer, x * 1000, y * 1000);
 				break;
-			case MandelbrotColors::Purple:
+			case 1:
 				SDL_SetRenderDrawColor(renderer, 60, 55, 68, 225);
 				SDL_RenderDrawPointF(renderer, x * 1000, y * 1000);
 				break;
-			case MandelbrotColors::RoyalBlue:
+			case 2:
 				SDL_SetRenderDrawColor(renderer, 9, 12, 155, 225);
 				SDL_RenderDrawPointF(renderer, x * 1000, y * 1000);
 				break;
-			case MandelbrotColors::Blue:
+			case 3:
 				SDL_SetRenderDrawColor(renderer, 61, 82, 213, 225);
 				SDL_RenderDrawPointF(renderer, x * 1000, y * 1000);
 				break;
-			case MandelbrotColors::LightBlue:
+			case 4:
 				SDL_SetRenderDrawColor(renderer, 180, 192, 228, 225);
 				SDL_RenderDrawPointF(renderer, x * 1000, y * 1000);
 				break;
-			case MandelbrotColors::White:
+			case 5:
 				SDL_SetRenderDrawColor(renderer, 251, 255, 241, 225);
 				SDL_RenderDrawPointF(renderer, x * 1000, y * 1000);
 				break;
