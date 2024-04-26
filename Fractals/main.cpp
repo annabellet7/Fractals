@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 	Fern fern;
 	TriangleFrac triangle;
 
+	// sdl set up
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window* window = SDL_CreateWindow("Fractals", 800, 0, WIDTH, HEIGHT, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
@@ -23,37 +24,46 @@ int main(int argc, char* argv[])
 	double real, imaginary;
 	SDL_Event event;
 
+	// inital fractal draw
 	mandelbrot.drawMandelbrot(renderer);
 
 	std::cout << "running" << std::endl;
 	while (running)
 	{
+		// animates julia set
 		if (state == Julia_State)
 		{
 			julia.drawJulia(renderer);
 		}
+		
+		// checks for events
 		while (SDL_PollEvent(&event))
 		{
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:
+				// switches fractal type
 				switch (event.key.keysym.sym)
 				{
 				case SDLK_ESCAPE:
 					running = false;
 					break;
+
 				case SDLK_1:
 					mandelbrot.drawMandelbrot(renderer);
 					state = Mandelbrot_State;
 					break;
+
 				case SDLK_2:
 					julia.drawJulia(renderer);
 					state = Julia_State;
 					break;
+
 				case SDLK_3:
 					fern.drawPoint(renderer);
 					state = Fern_State;
 					break;
+
 				case SDLK_4:
 					SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 					SDL_RenderClear(renderer);
@@ -62,6 +72,8 @@ int main(int argc, char* argv[])
 					break;
 				}
 				break;
+
+				// checks for different mandelbrot set information
 			case SDL_MOUSEMOTION:
 				if (state == Mandelbrot_State || state == Julia_State)
 				{
@@ -96,6 +108,7 @@ int main(int argc, char* argv[])
 		SDL_Delay(16);
 	}
 
+	// cleans up sdl
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

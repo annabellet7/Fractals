@@ -1,6 +1,7 @@
 #include "triangle.h"
 #include <cmath>
 
+// draws sierpinski's triangle recursively
 void TriangleFrac::drawFractal(float x, float y, int length, SDL_Renderer* renderer, int levels)
 {
 	if (levels == mMax)
@@ -15,6 +16,7 @@ void TriangleFrac::drawFractal(float x, float y, int length, SDL_Renderer* rende
 	}
 }
 
+// draws a triangle given 3 points
 void TriangleFrac::triangle(std::pair <int, int> a, std::pair <int, int> b, std::pair <int, int> c, SDL_Renderer* renderer)
 {
 	SDL_SetRenderDrawColor(renderer, 225, 225, 225, 255);
@@ -23,6 +25,7 @@ void TriangleFrac::triangle(std::pair <int, int> a, std::pair <int, int> b, std:
 	SDL_RenderDrawLine(renderer, c.first, c.second, a.first, a.second);
 }
 
+// draws a equilateral triangle given a point and the length of the sides
 void TriangleFrac::triangleLength(float x, float y, int length, SDL_Renderer* renderer)
 {
 	triangle(std::make_pair(x, y), std::make_pair(x + length / 2, y - std::sin(M_PI / 3) * length), std::make_pair(x + length, y), renderer);

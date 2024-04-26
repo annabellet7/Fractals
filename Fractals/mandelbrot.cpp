@@ -1,3 +1,7 @@
+// used these two references as a jumping off point for this project
+//https://www.youtube.com/watch?v=45H71xfm5u8&t=1634s
+//https://www.youtube.com/watch?v=fWP29aVVycA&t=506s
+
 #include "mandelbrot.h"
 #include <cmath>
 
@@ -15,6 +19,9 @@ Mandelbrot::~Mandelbrot()
 
 }
 
+// checks if every pixel on the screen is in the mandelbrot set
+// and colors according to how many iterations it took a point to
+// go to infinity
 void Mandelbrot::drawMandelbrot(SDL_Renderer* renderer)
 {
 	for (double x = 0; x < 1.0; x += 0.001)
@@ -56,6 +63,9 @@ void Mandelbrot::drawMandelbrot(SDL_Renderer* renderer)
 	}
 }
 
+// checks if a point is in the set for a sent number of iterations
+// if the complex number has a distance greater than 2, this means
+// that the point has gone to infinity
 int Mandelbrot::inSet(double cr, double ci)
 {
 	double zr = 0;
@@ -77,11 +87,13 @@ int Mandelbrot::inSet(double cr, double ci)
 	return 0;
 }
 
+// maps the screen pixel coordinates to world coordinates
 double Mandelbrot::screenToWorldX(int x)
 {
 	return mOrginR + (x - WIDTH / 2) * mScaleFactor;
 }
 
+// maps the screen pixel coordinates to world coordinates
 double Mandelbrot::screenToWorldY(int y)
 {
 	return mOrginI - (y - HEIGHT / 2) * mScaleFactor;
@@ -97,6 +109,7 @@ void Mandelbrot::setOrginI(double i)
 	mOrginI = i;
 }
 
+// allows for zoom
 void Mandelbrot::updateScale()
 {
 	mScalar += mScalarUpdate;

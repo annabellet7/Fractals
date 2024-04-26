@@ -7,6 +7,11 @@ Julia::Julia()
 	mAngle = 0;
 }
 
+// draws the julia set, iteratates if z goes to infinity
+// when c is a constant. Every time this function is called 
+// c is adjusted slightly to see mandelbrot dust. This is 
+// different than the mandelbrot set where c cooresponded
+// to the screen coordinate that was being drawn to.
 void Julia::drawJulia(SDL_Renderer* renderer)
 {
 	mCr = cos(mAngle * 3.213);
@@ -34,6 +39,8 @@ void Julia::drawJulia(SDL_Renderer* renderer)
 	}
 }
 
+// bascially the same as the mandelbrot set function but c
+// is a constant
 int Julia::juliaSet(double zr, double zi)
 {
 	for (int k = 0; k < 50; k++)

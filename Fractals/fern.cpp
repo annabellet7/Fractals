@@ -10,6 +10,7 @@ Fern::Fern()
 	mY = 0;
 }
 
+// draws a Barnsley fern based probability and set constants
 void Fern::drawPoint(SDL_Renderer* renderer)
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -39,6 +40,7 @@ void Fern::drawPoint(SDL_Renderer* renderer)
 	}
 }
 
+// decides the next point to draw based on probability
 int Fern::nextPoint()
 {
 	std::random_device rd;
@@ -48,24 +50,28 @@ int Fern::nextPoint()
 	int chance = dist(gen);
 	int color;
 
+	// stem
 	if (chance == 1)
 	{
 		mNextX = 0;
 		mNextY = .16 * mY;
 		color = 0;
 	}
+	// smaller leaves
 	else if (chance <= 85)
 	{
 		mNextX = .85 * mX + .04 * mY;
 		mNextY = -.04 * mX + .85 * mY + 1.6;
 		color = 1;
 	}
+	// largest left leaf
 	else if (chance <= 93)
 	{
 		mNextX = .2 * mX - .26 * mY;
 		mNextY = .23 * mX + .22 * mY + 1.6;
 		color = 2;
 	}
+	// largest right left
 	else
 	{
 		mNextX = -.15 * mX + .28 * mY;
@@ -79,11 +85,13 @@ int Fern::nextPoint()
 	return color;
 }
 
+// converts from world coordinates to screen coordinates
 int Fern::worldToScreenX(double x)
 {
 	return x / mScaleFactor + WIDTH / 2;
 }
 
+// converts from world coordinates to screen coordinates
 int Fern::worldToScreenY(double y)
 {
 	return -y / mScaleFactor + HEIGHT;
