@@ -132,15 +132,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fern.cpp" />
     <ClCompile Include="julia.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mandelbrot.cpp" />
-    <ClCompile Include="tree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="fern.h" />
     <ClInclude Include="julia.h" />
     <ClInclude Include="mandelbrot.h" />
-    <ClInclude Include="tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

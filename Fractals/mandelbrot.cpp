@@ -46,6 +46,16 @@ double Mandelbrot::screenToWorldY(int y)
 	return mOrginI - (y - HEIGHT / 2) * mScaleFactor;
 }
 
+double Mandelbrot::worldToScreenX(double x)
+{
+	return x / mScaleFactor + WIDTH / 2;
+}
+
+double Mandelbrot::worldToScreenY(double y)
+{
+	return -y / mScaleFactor + HEIGHT / 2;
+}
+
 void Mandelbrot::setOrginR(double r)
 {
 	mOrginR = r;

@@ -2,14 +2,14 @@
 
 #include "mandelbrot.h"
 #include "julia.h"
-#include "tree.h"
+#include "fern.h"
 
 int main(int argc, char* argv[])
 {
 	bool running = true;
 	Mandelbrot mandelbrot;
 	Julia julia;
-	Tree tree;
+	Fern fern;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_Window* window = SDL_CreateWindow("Fractals", 800, 0, 1000, 1000, 0);
@@ -21,9 +21,8 @@ int main(int argc, char* argv[])
 	double real, imaginary;
 	SDL_Event event;
 
-	/*mandelbrot.drawMandelbrot(renderer);*/
-	tree.drawBranch(renderer);
-	tree.clockWise(tree.getBranch(0), M_PI / 4, renderer);
+	mandelbrot.drawMandelbrot(renderer);
+	//fern.drawPoint(renderer);
 
 	std::cout << "running" << std::endl;
 	while (running)
@@ -50,26 +49,39 @@ int main(int argc, char* argv[])
 					julia.drawJulia(renderer);
 					state = 2;
 					break;
+				case SDLK_3:
+					fern.drawPoint(renderer);
+					state = 3;
+					break;
 				}
 				break;
 			case SDL_MOUSEMOTION:
-				SDL_GetMouseState(&xMouse, &yMouse);
-				r = mandelbrot.screenToWorldX(xMouse);
-				i = mandelbrot.screenToWorldY(yMouse);
-				std::cout << "(" << r << ", " << i << ")" << std::endl;
+				if (state == 1 || state == 2)
+				{
+					SDL_GetMouseState(&xMouse, &yMouse);
+					r = mandelbrot.screenToWorldX(xMouse);
+					i = mandelbrot.screenToWorldY(yMouse);
+					std::cout << "(" << r << ", " << i << ")" << std::endl;
+				}
 				break;
 			case SDL_MOUSEBUTTONUP:
-				SDL_GetMouseState(&xMouse, &yMouse);
-				r = mandelbrot.screenToWorldX(xMouse);
-				i = mandelbrot.screenToWorldY(yMouse);
-				mandelbrot.setOrginR(r);
-				mandelbrot.setOrginI(i);
+				if (state == 1)
+				{
+					SDL_GetMouseState(&xMouse, &yMouse);
+					r = mandelbrot.screenToWorldX(xMouse);
+					i = mandelbrot.screenToWorldY(yMouse);
+					mandelbrot.setOrginR(r);
+					mandelbrot.setOrginI(i);
 
-				mandelbrot.drawMandelbrot(renderer);
+					mandelbrot.drawMandelbrot(renderer);
+				}
 				break;
 			case SDL_MOUSEWHEEL:
-				mandelbrot.updateScale();
-				mandelbrot.drawMandelbrot(renderer);
+				if (state == 1)
+				{
+					mandelbrot.updateScale();
+					mandelbrot.drawMandelbrot(renderer);
+				}
 				break;
 			}
 		}
