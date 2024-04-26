@@ -1,8 +1,10 @@
 #include <iostream>
 
+#include "header.h"
 #include "mandelbrot.h"
 #include "julia.h"
 #include "fern.h"
+#include "triangle.h"
 
 int main(int argc, char* argv[])
 {
@@ -10,24 +12,23 @@ int main(int argc, char* argv[])
 	Mandelbrot mandelbrot;
 	Julia julia;
 	Fern fern;
+	TriangleFrac triangle;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow("Fractals", 800, 0, 1000, 1000, 0);
+	SDL_Window* window = SDL_CreateWindow("Fractals", 800, 0, WIDTH, HEIGHT, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-	
 
-	int xMouse, yMouse, state = 1;
+	int xMouse, yMouse, state = Mandelbrot_State;
 	double r, i;
 	double real, imaginary;
 	SDL_Event event;
 
 	mandelbrot.drawMandelbrot(renderer);
-	//fern.drawPoint(renderer);
 
 	std::cout << "running" << std::endl;
 	while (running)
 	{
-		if (state == 2)
+		if (state == Julia_State)
 		{
 			julia.drawJulia(renderer);
 		}
@@ -43,20 +44,26 @@ int main(int argc, char* argv[])
 					break;
 				case SDLK_1:
 					mandelbrot.drawMandelbrot(renderer);
-					state = 1;
+					state = Mandelbrot_State;
 					break;
 				case SDLK_2:
 					julia.drawJulia(renderer);
-					state = 2;
+					state = Julia_State;
 					break;
 				case SDLK_3:
 					fern.drawPoint(renderer);
-					state = 3;
+					state = Fern_State;
+					break;
+				case SDLK_4:
+					SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+					SDL_RenderClear(renderer);
+					triangle.drawFractal(WIDTH / 2 - triangle.mLength / 2, HEIGHT / 2 + std::sin(M_PI / 3) * triangle.mLength / 2, triangle.mLength, renderer, 1);
+					state = Triangle_State;
 					break;
 				}
 				break;
 			case SDL_MOUSEMOTION:
-				if (state == 1 || state == 2)
+				if (state == Mandelbrot_State || state == Julia_State)
 				{
 					SDL_GetMouseState(&xMouse, &yMouse);
 					r = mandelbrot.screenToWorldX(xMouse);
@@ -65,7 +72,7 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
-				if (state == 1)
+				if (state == Mandelbrot_State)
 				{
 					SDL_GetMouseState(&xMouse, &yMouse);
 					r = mandelbrot.screenToWorldX(xMouse);
@@ -77,7 +84,7 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case SDL_MOUSEWHEEL:
-				if (state == 1)
+				if (state == Mandelbrot_State)
 				{
 					mandelbrot.updateScale();
 					mandelbrot.drawMandelbrot(renderer);

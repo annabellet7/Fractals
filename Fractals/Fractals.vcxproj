@@ -136,11 +136,14 @@
     <ClCompile Include="julia.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mandelbrot.cpp" />
+    <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fern.h" />
+    <ClInclude Include="header.h" />
     <ClInclude Include="julia.h" />
     <ClInclude Include="mandelbrot.h" />
+    <ClInclude Include="triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

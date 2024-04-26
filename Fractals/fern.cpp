@@ -1,14 +1,42 @@
 #include "fern.h"
 #include <random>
 
-int Fern::worldToScreenX(double x)
+Fern::Fern()
 {
-	return x / mScaleFactor + width / 2;
+	mScaleFactor = 1 / (WIDTH * .1);
+	mNextX = 0;
+	mNextY = 0;
+	mX = 0;
+	mY = 0;
 }
 
-int Fern::worldToScreenY(double y)
+void Fern::drawPoint(SDL_Renderer* renderer)
 {
-	return -y / mScaleFactor + height;
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderClear(renderer);
+	for (int i = 0; i < 100000; i++)
+	{
+		switch (nextPoint())
+		{
+		case 0:
+			SDL_SetRenderDrawColor(renderer, 210, 238, 219, 225);
+			SDL_RenderDrawPointF(renderer, worldToScreenX(mX), worldToScreenY(mY));
+			break;
+		case 1:
+			SDL_SetRenderDrawColor(renderer, 181, 227, 196, 225);
+			SDL_RenderDrawPointF(renderer, worldToScreenX(mX), worldToScreenY(mY));
+			break;
+		case 2:
+			SDL_SetRenderDrawColor(renderer, 137, 210, 161, 225);
+			SDL_RenderDrawPointF(renderer, worldToScreenX(mX), worldToScreenY(mY));
+			break;
+		case 3:
+			SDL_SetRenderDrawColor(renderer, 107, 199, 138, 225);
+			SDL_RenderDrawPointF(renderer, worldToScreenX(mX), worldToScreenY(mY));
+			break;
+		}
+
+	}
 }
 
 int Fern::nextPoint()
@@ -22,60 +50,42 @@ int Fern::nextPoint()
 
 	if (chance == 1)
 	{
-		nextX = 0;
-		nextY = .16 * y;
+		mNextX = 0;
+		mNextY = .16 * mY;
 		color = 0;
 	}
 	else if (chance <= 85)
 	{
-		nextX = .85 * x + .04 * y;
-		nextY = -.04 * x + .85 * y + 1.6;
+		mNextX = .85 * mX + .04 * mY;
+		mNextY = -.04 * mX + .85 * mY + 1.6;
 		color = 1;
 	}
 	else if (chance <= 93)
 	{
-		nextX = .2 * x - .26 * y;
-		nextY = .23 * x + .22 * y + 1.6;
+		mNextX = .2 * mX - .26 * mY;
+		mNextY = .23 * mX + .22 * mY + 1.6;
 		color = 2;
 	}
 	else
 	{
-		nextX = -.15 * x + .28 * y;
-		nextY = .26 * x + .24 * y + .44;
+		mNextX = -.15 * mX + .28 * mY;
+		mNextY = .26 * mX + .24 * mY + .44;
 		color = 3;
 	}
 
-	x = nextX;
-	y = nextY;
+	mX = mNextX;
+	mY = mNextY;
 
 	return color;
 }
 
-void Fern::drawPoint(SDL_Renderer* renderer)
+int Fern::worldToScreenX(double x)
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	for (int i = 0; i < 100000; i++)
-	{
-		switch (nextPoint())
-		{
-		case 0:
-			SDL_SetRenderDrawColor(renderer, 210, 238, 219, 225);
-			SDL_RenderDrawPointF(renderer, worldToScreenX(x), worldToScreenY(y));
-			break;
-		case 1:
-			SDL_SetRenderDrawColor(renderer, 181, 227, 196, 225);
-			SDL_RenderDrawPointF(renderer, worldToScreenX(x), worldToScreenY(y));
-			break;
-		case 2:
-			SDL_SetRenderDrawColor(renderer, 137, 210, 161, 225);
-			SDL_RenderDrawPointF(renderer, worldToScreenX(x), worldToScreenY(y));
-			break;
-		case 3:
-			SDL_SetRenderDrawColor(renderer, 107, 199, 138, 225);
-			SDL_RenderDrawPointF(renderer, worldToScreenX(x), worldToScreenY(y));
-			break;
-		}
-		
-	}
+	return x / mScaleFactor + WIDTH / 2;
 }
+
+int Fern::worldToScreenY(double y)
+{
+	return -y / mScaleFactor + HEIGHT;
+}
+

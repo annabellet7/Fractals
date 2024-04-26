@@ -15,57 +15,6 @@ Mandelbrot::~Mandelbrot()
 
 }
 
-int Mandelbrot::inSet(double cr, double ci)
-{
-	double zr = 0;
-	double zi = 0;
-	for (int k = 0; k < 250; k++)
-	{
-		double setZr = zr * zr - zi * zi + cr;
-		double setZi = 2 * zr * zi + ci;
-		zr = setZr;
-		zi = setZi;
-		double dist = sqrt(zr * zr + zi * zi);
-		if (dist > 2)
-		{
-			int color = (k % 5) + 1;
-			return color;
-		}
-	}
-
-	return 0;
-}
-
-double Mandelbrot::screenToWorldX(int x)
-{
-	return mOrginR + (x - WIDTH / 2) * mScaleFactor;
-}
-
-double Mandelbrot::screenToWorldY(int y)
-{
-	return mOrginI - (y - HEIGHT / 2) * mScaleFactor;
-}
-
-double Mandelbrot::worldToScreenX(double x)
-{
-	return x / mScaleFactor + WIDTH / 2;
-}
-
-double Mandelbrot::worldToScreenY(double y)
-{
-	return -y / mScaleFactor + HEIGHT / 2;
-}
-
-void Mandelbrot::setOrginR(double r)
-{
-	mOrginR = r;
-}
-
-void Mandelbrot::setOrginI(double i)
-{
-	mOrginI = i;
-}
-
 void Mandelbrot::drawMandelbrot(SDL_Renderer* renderer)
 {
 	for (double x = 0; x < 1.0; x += 0.001)
@@ -105,6 +54,47 @@ void Mandelbrot::drawMandelbrot(SDL_Renderer* renderer)
 			}
 		}
 	}
+}
+
+int Mandelbrot::inSet(double cr, double ci)
+{
+	double zr = 0;
+	double zi = 0;
+	for (int k = 0; k < 250; k++)
+	{
+		double setZr = zr * zr - zi * zi + cr;
+		double setZi = 2 * zr * zi + ci;
+		zr = setZr;
+		zi = setZi;
+		double dist = sqrt(zr * zr + zi * zi);
+		if (dist > 2)
+		{
+			int color = (k % 5) + 1;
+			return color;
+		}
+	}
+
+	return 0;
+}
+
+double Mandelbrot::screenToWorldX(int x)
+{
+	return mOrginR + (x - WIDTH / 2) * mScaleFactor;
+}
+
+double Mandelbrot::screenToWorldY(int y)
+{
+	return mOrginI - (y - HEIGHT / 2) * mScaleFactor;
+}
+
+void Mandelbrot::setOrginR(double r)
+{
+	mOrginR = r;
+}
+
+void Mandelbrot::setOrginI(double i)
+{
+	mOrginI = i;
 }
 
 void Mandelbrot::updateScale()

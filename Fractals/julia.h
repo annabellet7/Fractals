@@ -1,17 +1,15 @@
 #pragma once
 
-
 #include "mandelbrot.h"
 
 class Julia : public Mandelbrot
 {
 private:
-	double cr, ci, angle;
+	double mCr, mCi, mAngle;
 
 public:
 	Julia();
 
-	int juliaSet(double cr, double ci);
 	void drawJulia(SDL_Renderer* renderer);
-
+	int juliaSet(double zr, double zi);
 };

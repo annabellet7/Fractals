@@ -2,35 +2,16 @@
 
 Julia::Julia()
 {
-	cr = 0;
-	ci = 0;
-	angle = 0;
-}
-
-int Julia::juliaSet(double zr, double zi)
-{
-	for (int k = 0; k < 50; k++)
-	{
-		double setZr = zr * zr - zi * zi + cr;
-		double setZi = 2 * zr * zi + ci;
-		zr = setZr;
-		zi = setZi;
-		double dist = sqrt(zr * zr + zi * zi);
-		if (dist > 2)
-		{
-			int color = (k % 5) + 1;
-			return k;
-		}
-	}
-
-	return 0;
+	mCr = 0;
+	mCi = 0;
+	mAngle = 0;
 }
 
 void Julia::drawJulia(SDL_Renderer* renderer)
 {
-	cr = cos(angle * 3.213);
-	ci = sin(angle);
-	angle += .01;
+	mCr = cos(mAngle * 3.213);
+	mCi = sin(mAngle);
+	mAngle += .01;
 	for (double x = 0; x < 1.0; x += 0.001)
 	{
 		for (double y = 0; y < 1.0; y += 0.001)
@@ -51,4 +32,23 @@ void Julia::drawJulia(SDL_Renderer* renderer)
 			}
 		}
 	}
+}
+
+int Julia::juliaSet(double zr, double zi)
+{
+	for (int k = 0; k < 50; k++)
+	{
+		double setZr = zr * zr - zi * zi + mCr;
+		double setZi = 2 * zr * zi + mCi;
+		zr = setZr;
+		zi = setZi;
+		double dist = sqrt(zr * zr + zi * zi);
+		if (dist > 2)
+		{
+			int color = (k % 5) + 1;
+			return k;
+		}
+	}
+
+	return 0;
 }

@@ -1,5 +1,6 @@
 #pragma once
-#include <SDL.h>
+
+#include "header.h"
 
 class Mandelbrot
 {
@@ -10,24 +11,19 @@ private:
 	double mOrginR;
 	double mOrginI;
 
-
 public:
-	const int WIDTH = 1000;
-	const int HEIGHT = 1000;
-
 	Mandelbrot();
 	~Mandelbrot();
 
+	void drawMandelbrot(SDL_Renderer* renderer);
+
 	int inSet(double cr, double ci);
+
 	double screenToWorldX(int x);
 	double screenToWorldY(int y);
-	double worldToScreenX(double x);
-	double worldToScreenY(double y);
-
-	void drawMandelbrot(SDL_Renderer* renderer);
 
 	void setOrginR(double r);
 	void setOrginI(double i);
-	void updateScale();
 
+	void updateScale();
 };

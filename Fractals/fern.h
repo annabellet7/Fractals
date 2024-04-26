@@ -1,18 +1,20 @@
 #pragma once
 
-#include <SDL.h>
+#include "header.h"
 
 class Fern
 {
 private:
-	int width = 1000, height = 1000;
-	double mScaleFactor = 1 / (width * .1);
-	double nextX, nextY;
-	double x = 0, y = 0;
+	double mScaleFactor = 1 / (WIDTH * .1);
+	double mNextX, mNextY;
+	double mX, mY;
+
 public: 
+	Fern();
+
+	void drawPoint(SDL_Renderer* renderer);
+	int nextPoint();
+
 	int worldToScreenX(double x);
 	int worldToScreenY(double y);
-
-	int nextPoint();
-	void drawPoint(SDL_Renderer* renderer);
 };
